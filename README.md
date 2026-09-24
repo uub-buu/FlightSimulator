@@ -1,21 +1,26 @@
 Based on candidate feedback from interview platforms like Glassdoor, Reddit, and technical prep sites, Shield AI’s 120-minute coding assessment for Application and Sustainment Engineering avoids abstract brain-teasers in favor of practical, multi-part scenarios. These problems test your ability to handle telemetry, out-of-order data, concurrency, and system reliability—core components of their autonomous defense systems.
 Here are five specific types of problems that fit this two-hour allocation:
+
 **1. Time-Series Fault Telemetry (Sliding Window)**
  * **The Scenario:** You are provided a stream of system fault logs from an autonomous drone. You must implement an interface with methods like add_fault(timestamp, error_code) and get_recent_fault_count(current_time, time_window).
  * **The Challenge:** As the volume of data grows, you must efficiently count faults within a sliding window (e.g., the last 10 seconds) without running out of memory.
  * **What it Tests:** Space/time complexity and memory management. You are expected to use double-ended queues (deques) to evict stale timestamps efficiently rather than rescanning the entire history on every call.
+
 **2. Out-of-Order Versioned Configuration Delivery**
  * **The Scenario:** A command center sends configuration updates to edge vehicles. Because these vehicles frequently lose connection, they receive these updates in batches, out-of-order, or with duplicates.
  * **The Challenge:** Write a parser that ingests this disordered stream of JSON or custom-delimited commands and determines the final, correct state of the vehicle's configuration.
  * **What it Tests:** Idempotency and sequence tracking. You will need to implement logic that compares version IDs or sequence numbers, ensuring an older delayed packet does not overwrite a newer configuration.
+
 **3. Bounded Telemetry Buffer with Backpressure**
  * **The Scenario:** A vehicle generates high-frequency telemetry data, but the network link to the ground station is slow or intermittent.
  * **The Challenge:** Implement a bounded buffer system that temporarily stores this telemetry. When the queue is full, you must decide how to shed load—for example, dropping the oldest non-critical logs while preserving critical flight-control state.
  * **What it Tests:** Resource ceilings and defensive programming. They want to see that your logging or upload mechanics never block the critical control path or crash the system due to an out-of-memory exception.
+
 **4. Sensor Log Merging and Reconciliation**
  * **The Scenario:** You receive multiple independent log files from different subsystems (e.g., camera timestamps, flight controller events, and network state changes).
  * **The Challenge:** Merge these sorted sequences into a single chronological master log. In later parts of the 120-minute window, you may be asked to handle missing timestamps by applying basic interpolation or dropping orphaned events.
  * **What it Tests:** Pointer manipulation and data reconciliation. This is a practical application of "Merge K Sorted Lists," requiring you to handle edge cases like mismatched timestamps or corrupted lines gracefully.
+
 **5. Vehicle State Replay and Fault Identification**
  * **The Scenario:** You are given a historical log of telemetry commands and state changes from a vehicle that experienced a failure in the field.
  * **The Challenge:** Build a state machine that reads the log line-by-line, updating internal variables (e.g., velocity, altitude, battery level). You must write an algorithm to flag exactly when the vehicle breached a predefined safety boundary (e.g., altitude dropped below a threshold while velocity exceeded a limit).
