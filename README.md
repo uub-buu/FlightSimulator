@@ -1,3 +1,22 @@
+A 140-minute take-home assessment for a defense-tech company like Shield AI typically splits between rapid conceptual fundamentals and a deep-dive implementation. Because you are interviewing for Application and Sustainment Engineering—but they want to gauge your core development skills—the test will balance standard algorithmic problem-solving with real-world system reliability scenarios.
+**Section 1: The 20-Minute Sprint (Fundamentals & Analysis)**
+A 20-minute timebox is designed for rapid-fire evaluation rather than deep coding.
+ * **Multiple-Choice or Short Answer:** Expect questions covering core language fundamentals (typically C++ or Python), memory management (stack vs. heap), and concurrency or multi-threading concepts.
+ * **Code Review and Debugging:** You may be given a flawed codebase and asked to identify bugs, race conditions, or memory leaks.
+ * **Design and Trade-offs:** If the test uses a platform like Byteboard, this section often involves reading a brief system design document and answering questions about architectural trade-offs, edge cases, and performance bottlenecks.
+**Section 2: The 120-Minute Marathon (Implementation)**
+A two-hour coding window strongly suggests a progressive challenge or a functional mini-project rather than a single brain-teaser.
+ * **Algorithmic Progression:** You may face 2 to 3 coding problems scaling from Easy to Hard. Shield AI frequently tests array and matrix manipulation (e.g., in-place vector modifications), two-pointer techniques, and space-efficient data structures.
+ * **Systems and Telemetry Mini-Project:** Given the Application and Sustainment context, you might be asked to parse and analyze simulated field data. Common scenarios include processing JSON telemetry logs, handling out-of-order sequence numbers, aggregating time-series data, or managing bounded queues under system pressure.
+**Targeting the Sustainment and Application Engineering Context**
+Shield AI operates in a hardware-heavy, mission-critical environment, which directly influences how they grade code.
+ * **Defensive Programming:** The grading rubric will heavily weigh how your code reacts to bad data. Explicitly handle edge cases, dropped data packets, empty arrays, and unexpected null values.
+ * **Resource Constraints:** Even for higher-level application roles, memory efficiency matters. Avoid unnecessary data duplication and leverage in-place manipulation to show you understand how code executes in constrained environments.
+ * **Modularity:** With 120 minutes available, structure your solution with clean, readable helper functions rather than a massive monolithic block.
+Treat the two hours as a test of maintainability as much as logic. Build out the core "happy path" first to ensure your code compiles and passes the basic tests, then systematically lock down your edge cases.
+
+
+
 ## 1. Time-Series Fault Telemetry (Sliding Window)
 This problem requires managing a stream of incoming data while calculating metrics over a moving time window. In a real-time defense context, you must avoid scanning the entire history of logs to find the current count.
 ```cpp
